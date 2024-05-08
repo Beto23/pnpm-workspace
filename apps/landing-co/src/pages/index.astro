@@ -1,12 +1,50 @@
 ---
 import Layout from '../layouts/Layout.astro'
-
 import Home from '../components/Home.tsx'
+
+// Setting SSG for this page!
+export const prerender = true
+
+const query = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${import.meta.env.HYGRAPH_TOKEN}`,
+  },
+  body: JSON.stringify({
+    query: `
+      query getCarriersHome($id: ID) {
+        carriersSection(where: { id: $id }) {
+          cta
+          disclamer
+        }
+      }
+`,
+    variables: { id: import.meta.env.HYGRAPH_CARRIERS_ID },
+  }),
+}
+
+let data = null
+try {
+  const response = await fetch(import.meta.env.HYGRAPH_ENDPOINT, query)
+  const json = await response.json()
+  data = json.data.carriersSection
+} catch (error) {
+  // logs to dataDog
+  console.error(error)
+}
 ---
 
 <Layout title="Welcome to Astro.">
   <main>
-    <Home />
+    <Home >
+      {data && (
+        <div class="container">
+          <h1>{data.cta}</h1>
+          <p>{data.disclamer}</p>
+        </div>
+      )}
+      </Home>
   </main>
 </Layout>
 
@@ -14,6 +52,12 @@ import Home from '../components/Home.tsx'
   main {
     font-size: 20px;
     line-height: 1.6;
+    background-color: #FFF;
+  }
+
+  .container {
+    padding: 2em;
+    text-align: center;
   }
   .astro-a {
     position: absolute;

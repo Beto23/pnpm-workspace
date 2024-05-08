@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function HeroSection() {
+export function HeroSection({children}: {children?: React.ReactNode}) {
   return (
     <div style={
       {
@@ -16,6 +16,8 @@ export function HeroSection() {
     >
       <h1>Hero Section</h1>
       <a style={{color: 'blue'}} href="/paqueterias">Go to Paqueterias</a>
+      <br />
+      {children}
     </div>
   )
 }

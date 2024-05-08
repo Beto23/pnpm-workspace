@@ -1,9 +1,11 @@
 import { HeroSection, SectionCompanyRepo } from 'shared-ui'
 
-function Home() {
+function Home({ children }: { children?: React.ReactNode }) {
   return (
     <section>
-      <HeroSection />
+      <HeroSection>
+        {children}
+      </HeroSection>
       <SectionCompanyRepo />
     </section>
   )
