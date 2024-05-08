@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro'
+const carriers = [
+  {
+    name: 'DHL',
+    slug: 'dhl',
+  },
+  {
+    name: 'FedEx',
+    slug: 'fedex',
+  },
+  {
+    name: 'UPS',
+    slug: 'ups',
+  },
+  {
+    name: 'Estafeta',
+    slug: 'estafeta',
+  },
+]
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1>Carriers</h1>
+    <ul>
+      {carriers.map((carrier) => (
+        <li>
+          <a href={`/paqueterias/${carrier.slug}`}>{carrier.name}</a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+  }
+  h1 {
+    color: #FFF;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 1rem;
+  }
+  a {
+    color: blue;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

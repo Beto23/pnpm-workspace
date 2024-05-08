@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro'
+export async function getStaticPaths() {
+  const carriers = [
+    {
+      name: 'DHL',
+      image: '/images/dhl.png',
+      url: 'https://www.dhl.com/',
+      slug: 'dhl',
+    },
+    {
+      name: 'FedEx',
+      image: '/images/fedex.png',
+      url: 'https://www.fedex.com/',
+      slug: 'fedex',
+    },
+    {
+      name: 'UPS',
+      image: '/images/ups.png',
+      url: 'https://www.ups.com/',
+      slug: 'ups',
+    },
+    {
+      name: 'Estafeta',
+      image: '/images/usps.png',
+      url: 'https://www.usps.com/',
+      slug: 'estafeta',
+    },
+  ]
+
+  return carriers.map(({ slug, name }) => {
+    return {
+      params: { slug },
+      props: { name },
+    }
+  })
+}
+
+const { name } = Astro.props
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1>{name}</h1>
+  </main>
+
+  <style>
+    main {
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 4rem;
+    }
+  </style>
+</Layout>
